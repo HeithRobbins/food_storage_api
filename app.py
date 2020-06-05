@@ -16,7 +16,7 @@ DATABASE_URI = env("DATABASE_URL")
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.sqlite')
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.sqlite')
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
 
 db = SQLAlchemy(app)
