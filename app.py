@@ -48,6 +48,20 @@ storages_schema = StorageSchema(many=True)
 def home():
   return "<h1>Storage Flask API</h1>"
 
+@app.route("/storages", methods=["GET"])
+def get_storages():
+    all_storages = Storage.query.all()
+    result = storages_schema.dump(all_storages)
+    return jsonify(result)
+
+
+@app.route("/storage/<id>", methods=["GET"])
+def get_storage(id):
+    storage = Storage.query.get(id)
+
+    result = storage_schema.dump(storage)
+    return jsonify(result)
+
 @app.route('/storage', methods=["POST"])
 def add_storage():
     name = request.json['name']
@@ -63,20 +77,6 @@ def add_storage():
     storage = Storage.query.get(new_Storage.id)
 
     return storage_schema.jsonify(storage)
-
-
-@app.route("/storages", methods=["GET"])
-def get_storages():
-    all_storages = Storage.query.all()
-    result = storages_schema.dump(all_storages)
-    return jsonify(result)
-
-
-@app.route("/storage/<id>", methods=["GET"])
-def get_storage(id):
-    storage = Storage.query.get(id)
-    return storage_schema.jsonify(storage)
-
 
 @app.route("/storage/<id>", methods=["PATCH"])
 def storage_update(id):
